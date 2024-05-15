@@ -3,13 +3,19 @@
 
 
 const canvas = document.getElementById('canvas');
+const increaseBtn = document.getElementById('increase');
+const decreaseBtn = document.getElementById('decrease');
+const sizeEL = document.getElementById('size');
+const colorEl = document.getElementById('color');
+const clearEl = document.getElementById('clear');
+
 const ctx = canvas.getContext('2d');
 
 /**
  *  putting these 2 variables as global variables 
  * so i can access them outside of the drawCicle() function.
  *  */ 
-let size = 20
+let size = 10
 isPressed = false
 // wanting to know if the mouse is being pressed
 let color = 'black'
@@ -89,6 +95,38 @@ function drawLine(x1,y1,x2,y2) {
 // /** starts from 300,300
 //  * then draw down 300 to 500  */ 
 
+function updateSizeOnScreen() {
+    sizeEL.innerText = size
+}
 
 
+increaseBtn.addEventListener('click',() => {
+    size += 5
+    // incrementing the size by 5
 
+    if(size > 50) {
+        size = 50
+    }
+
+    updateSizeOnScreen()
+
+})
+
+decreaseBtn.addEventListener('click',() => {
+    size -= 5
+    // incrementing the size by 5
+
+    if(size < 5) {
+        size = 5
+    }
+
+    updateSizeOnScreen()
+
+})
+
+
+// i want to listen for a change of color
+colorEl.addEventListener('change',(e) => color = e.target.value)
+
+clearEl.addEventListener('click',() => ctx.clearRect(0,
+    0, canvas.width, canvas.height))
