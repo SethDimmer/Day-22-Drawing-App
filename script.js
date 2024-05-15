@@ -10,12 +10,47 @@ const ctx = canvas.getContext('2d');
  * so i can access them outside of the drawCicle() function.
  *  */ 
 let size = 20
+isPressed = false
+// wanting to know if the mouse is being pressed
 let color = 'black'
 let x 
 let y
 
 
+canvas.addEventListener('mousedown',(e) => {
+    isPressed =true
+    // getting the position of where the mouse is
+    x = e.offsetX
+    y = e.offsetY
+    // console.log(isPressed,x,y)
+})
+canvas.addEventListener('mousemove',(e) => {
+    // i only want this to happen if the mouse is being pressed
+    if(isPressed) {
+        const x2 = e.offsetX
+        const y2 = e.offsetY
 
+        // console.log(x2,y2)
+        // when i click and hold my mouse i am console 
+        // logging what my position is.
+
+        drawCircle(x2,y2)
+        // when i press to draw it draws circles
+        drawLine(x,y,x2,y2)
+        x = x2
+        y = y2
+    }
+
+})
+
+// when i release i want isPressed to be false and i want to clear the offset values
+canvas.addEventListener('mouseup',(e) => {
+    isPressed =false
+    // getting the position of where the mouse is
+    x = undefined
+    y = undefined
+    // console.log(isPressed,x,y)
+})
 
 
 /* x and y are the positioning of canvas 
@@ -41,7 +76,7 @@ function drawLine(x1,y1,x2,y2) {
     ctx.lineTo(x2,y2)
     // starts as black
     ctx.strokeStyle = color
-    ctx.lineWidth = size
+    ctx.lineWidth = size * 2
     // this actually draws the line
     ctx.stroke()
 }
